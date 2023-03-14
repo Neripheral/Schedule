@@ -1,7 +1,7 @@
 package schedule;
 
 public enum Schedules {;
-    public static Schedule perform(Runnable procedure){
+    public static Schedule step(Runnable procedure){
         return new Step(procedure);
     }
 }

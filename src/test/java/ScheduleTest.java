@@ -17,7 +17,7 @@ public class ScheduleTest {
     @Test
     public void singleStepScheduleExecutesCorrectly() {
         assertThat(model.age).isNotEqualTo(5);
-        s = Schedules.perform(()-> model.age = 5);
+        s = Schedules.step(()-> model.age = 5);
         assertThat(s.proceed()).isTrue();
         assertThat(model.age).isEqualTo(5);
         assertThat(s.proceed()).isFalse();
