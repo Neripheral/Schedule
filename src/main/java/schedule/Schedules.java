@@ -15,4 +15,12 @@ public enum Schedules {;
         return Duo.of(schedules[0],
                 list(Arrays.copyOfRange(schedules, 1, schedules.length)));
     }
+
+    public static Schedule list(Runnable...runnables){
+        Schedule[] schedules =
+                Arrays.stream(runnables)
+                        .map(Schedules::step)
+                        .toArray(Schedule[]::new);
+        return list(schedules);
+    }
 }
