@@ -1,7 +1,7 @@
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import schedule.Schedule;
-import schedule.Schedules;
+import schedule.Step;
 
 import static com.google.common.truth.Truth.assertThat;
 
@@ -11,7 +11,7 @@ public class StepTest {
 
     @BeforeEach
     void setUp() {
-        s = Schedules.step(()-> model.age = 5);
+        s = Step.of(()-> model.age = 5);
         model = new ScheduleModel(20, "John", "Smith");
     }
 
