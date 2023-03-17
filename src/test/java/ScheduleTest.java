@@ -3,8 +3,6 @@ import org.junit.jupiter.api.Test;
 import schedule.Schedule;
 import schedule.Schedules;
 
-import java.util.List;
-
 import static com.google.common.truth.Truth.assertThat;
 
 public class ScheduleTest {
@@ -29,6 +27,17 @@ public class ScheduleTest {
         assertThat(s.proceed()).isFalse();
     }
 
+    @Test
+    void stepIsUsableAgainAfterResetMethodIsCalled() {
+        while(s.proceed());
+        assertThat(s.proceed()).isFalse();
+        model.age = 0;
+        s.reset();
+        assertThat(s.proceed()).isTrue();
+        while(s.proceed());
+        assertThat(s.proceed()).isFalse();
+        assertThat(model.age).isEqualTo(5);
+    }
 
     private static class Model{
         public int age = 0;
