@@ -12,7 +12,7 @@ public class ScheduleTest {
     @BeforeEach
     void setUp() {
         s = Schedules.step(()-> model.age = 5);
-        model = new ScheduleModel();
+        model = new ScheduleModel(20, "John", "Smith");
     }
 
     @Test
@@ -31,7 +31,7 @@ public class ScheduleTest {
     void stepIsUsableAgainAfterResetMethodIsCalled() {
         while(s.proceed());
         assertThat(s.proceed()).isFalse();
-        model.age = 0;
+        model.age = 20;
         s.reset();
         assertThat(s.proceed()).isTrue();
         while(s.proceed());
