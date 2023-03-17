@@ -31,4 +31,11 @@ class DuoTest {
         assertThat(model.name).isEqualTo("Carlos");
         assertThat(duo.proceed()).isFalse();
     }
+
+    @Test
+    void duoResetsCorrectly() {
+        while(duo.proceed());
+        duo.reset();
+        assertThat(duo.proceed()).isTrue();
+    }
 }
