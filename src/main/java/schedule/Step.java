@@ -2,7 +2,7 @@ package schedule;
 
 import java.util.Objects;
 
-class Step implements Schedule{
+public class Step implements Schedule{
     private final Runnable procedure;
     private boolean isDone = false;
 
