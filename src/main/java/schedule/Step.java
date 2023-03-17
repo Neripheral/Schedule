@@ -11,7 +11,7 @@ class Step implements Schedule{
     }
 
     private Step(Runnable procedure){
-        this.procedure = (Objects.isNull(procedure)) ? ()->{} : procedure;
+        this.procedure = Objects.requireNonNull(procedure);
     }
 
     @Override
