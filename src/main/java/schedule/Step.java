@@ -6,7 +6,11 @@ class Step implements Schedule{
     private final Runnable procedure;
     private boolean isDone = false;
 
-    public Step(Runnable procedure){
+    public static Step of(Runnable procedure){
+        return new Step(procedure);
+    }
+
+    private Step(Runnable procedure){
         this.procedure = (Objects.isNull(procedure)) ? ()->{} : procedure;
     }
 
