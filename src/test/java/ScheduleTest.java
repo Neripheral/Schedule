@@ -7,12 +7,12 @@ import static com.google.common.truth.Truth.assertThat;
 
 public class ScheduleTest {
     private Schedule s;
-    private Model model;
+    private ScheduleModel model;
 
     @BeforeEach
     void setUp() {
         s = Schedules.step(()-> model.age = 5);
-        model = new Model();
+        model = new ScheduleModel();
     }
 
     @Test
@@ -39,9 +39,4 @@ public class ScheduleTest {
         assertThat(model.age).isEqualTo(5);
     }
 
-    private static class Model{
-        public int age = 0;
-        public String name = "John";
-        public String surname = "Smith";
-    }
 }
