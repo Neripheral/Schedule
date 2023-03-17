@@ -1,5 +1,7 @@
 package schedule;
 
+import java.util.Objects;
+
 public class Duo implements Schedule{
     private final Schedule firstSchedule;
     private final Schedule secondSchedule;
@@ -9,8 +11,8 @@ public class Duo implements Schedule{
     }
 
     private Duo(Schedule firstSchedule, Schedule secondSchedule) {
-        this.firstSchedule = firstSchedule;
-        this.secondSchedule = secondSchedule;
+        this.firstSchedule = Objects.requireNonNull(firstSchedule);
+        this.secondSchedule = Objects.requireNonNull(secondSchedule);
     }
 
     @Override
