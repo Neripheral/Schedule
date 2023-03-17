@@ -1,19 +1,26 @@
 package schedule;
 
+import java.util.Objects;
+
 class Step implements Schedule{
+    private final Runnable procedure;
+    private boolean isDone = false;
+
     public Step(Runnable procedure){
-        this.procedure = procedure;
+        this.procedure = (Objects.isNull(procedure)) ? ()->{} : procedure;
     }
 
     @Override
     public boolean proceed() {
-        if(procedure != null){
-            procedure.run();
-            procedure = null;
-            return true;
-        }
-        return false;
+        if(isDone)
+            return false;
+        procedure.run();
+        isDone = true;
+        return true;
     }
 
-    private Runnable procedure;
+    @Override
+    public void reset() {
+        isDone = false;
+    }
 }
