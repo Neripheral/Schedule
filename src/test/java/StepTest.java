@@ -5,7 +5,7 @@ import schedule.Schedules;
 
 import static com.google.common.truth.Truth.assertThat;
 
-public class ScheduleTest {
+public class StepTest {
     private Schedule s;
     private ScheduleModel model;
 
