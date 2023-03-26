@@ -6,7 +6,7 @@ public enum Schedules {;
     public static Schedule step(Runnable procedure){
         if(procedure == null)
             return EmptyStep.INSTANCE;
-        return Step.of(procedure);
+        return new Step(procedure);
     }
 
     public static Schedule list(Schedule...schedules){

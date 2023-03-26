@@ -13,8 +13,8 @@ class DuoTest {
     @BeforeEach
     void setUp() {
         duo = Duo.of(
-                Step.of(() -> model.age = 50),
-                Step.of(() -> model.name = "Carlos")
+                new Step(() -> model.age = 50),
+                new Step(() -> model.name = "Carlos")
         );
         model = new ScheduleModel(20, "John", "Smith");
     }

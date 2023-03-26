@@ -11,7 +11,7 @@ public class StepTest {
 
     @BeforeEach
     void setUp() {
-        s = Step.of(()-> model.age = 5);
+        s = new Step(() -> model.age = 5);
         model = new ScheduleModel(20, "John", "Smith");
     }
 
