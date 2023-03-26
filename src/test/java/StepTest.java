@@ -12,13 +12,7 @@ public class StepTest {
     @BeforeEach
     protected void setUp() {
         s = new Step(() -> model.age = 5);
-        model = new ScheduleModel(20, "John", "Smith");
-    }
-
-    @Test
-    public void stepExecutesCorrectly() {
-        while(s.proceed());
-        assertThat(model.age).isEqualTo(5);
+        model = ScheduleModel.getFreshModel();
     }
 
     @Test

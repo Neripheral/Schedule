@@ -7,5 +7,6 @@ public class StepResetTest extends StepTest {
         super.setUp();
         while(s.proceed());
         s.reset();
+        model = ScheduleModel.getFreshModel();
     }
 }
