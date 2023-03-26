@@ -5,6 +5,10 @@ class ScheduleModel {
         this.surname = surname;
     }
 
+    public static ScheduleModel getFreshModel(){
+        return new ScheduleModel(20, "John", "Smith");
+    }
+
     public int age;
     public String name;
     public String surname;
