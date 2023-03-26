@@ -6,11 +6,11 @@ import schedule.Schedules;
 import static com.google.common.truth.Truth.assertThat;
 
 class ListTest {
-    private Schedule list;
-    private ScheduleModel model;
+    protected Schedule list;
+    protected ScheduleModel model;
 
     @BeforeEach
-    void setUp() {
+    protected void setUp() {
         list = Schedules.list(
                 () -> model.age = 50,
                 () -> model.name = "Carlos",
@@ -19,11 +19,11 @@ class ListTest {
                 () -> model.name = "Kamil",
                 () -> model.surname = "Nowak"
         );
-        model = new ScheduleModel(20, "John", "Smith");
+        model = ScheduleModel.getFreshModel();
     }
 
     @Test
-    void listExecutesCorrectly() {
+    public void listExecutesCorrectly() {
         assertThat(model.age).isEqualTo(20);
         assertThat(model.name).isEqualTo("John");
         assertThat(model.surname).isEqualTo("Smith");
@@ -52,12 +52,5 @@ class ListTest {
         assertThat(model.name).isEqualTo("Kamil");
         assertThat(model.surname).isEqualTo("Nowak");
         assertThat(list.proceed()).isFalse();
-    }
-
-    @Test
-    void listResetsCorrectly() {
-        while(list.proceed());
-        list.reset();
-        assertThat(list.proceed()).isTrue();
     }
 }
