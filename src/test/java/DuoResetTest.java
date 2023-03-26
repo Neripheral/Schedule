@@ -7,6 +7,6 @@ public class DuoResetTest extends DuoTest {
         super.setUp();
         while(duo.proceed());
         duo.reset();
-        model = getFreshModel();
+        model = ScheduleModel.getFreshModel();
     }
 }

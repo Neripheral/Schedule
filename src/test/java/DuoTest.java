@@ -13,11 +13,7 @@ class DuoTest {
     @BeforeEach
     protected void setUp() {
         duo = new Duo(new Step(() -> model.age = 50), new Step(() -> model.name = "Carlos"));
-        model = getFreshModel();
-    }
-
-    public static ScheduleModel getFreshModel(){
-        return new ScheduleModel(20, "John", "Smith");
+        model = ScheduleModel.getFreshModel();
     }
 
     @Test
