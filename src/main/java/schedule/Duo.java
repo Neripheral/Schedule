@@ -6,11 +6,7 @@ public class Duo implements Schedule{
     private final Schedule firstSchedule;
     private final Schedule secondSchedule;
 
-    public static Duo of(Schedule firstSchedule, Schedule secondSchedule){
-        return new Duo(firstSchedule, secondSchedule);
-    }
-
-    private Duo(Schedule firstSchedule, Schedule secondSchedule) {
+    public Duo(Schedule firstSchedule, Schedule secondSchedule) {
         this.firstSchedule = Objects.requireNonNull(firstSchedule);
         this.secondSchedule = Objects.requireNonNull(secondSchedule);
     }

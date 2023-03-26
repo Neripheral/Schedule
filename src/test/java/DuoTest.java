@@ -12,10 +12,7 @@ class DuoTest {
 
     @BeforeEach
     void setUp() {
-        duo = Duo.of(
-                new Step(() -> model.age = 50),
-                new Step(() -> model.name = "Carlos")
-        );
+        duo = new Duo(new Step(() -> model.age = 50), new Step(() -> model.name = "Carlos"));
         model = new ScheduleModel(20, "John", "Smith");
     }
 
