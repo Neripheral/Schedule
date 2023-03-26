@@ -16,6 +16,12 @@ public class StepTest {
     }
 
     @Test
+    void stepProceedsCorrectly() {
+        assertThat(s.proceed()).isTrue();
+        assertThat(model.age).isEqualTo(5);
+    }
+
+    @Test
     public void stepLifeEndsAfterExecution() {
         assertThat(s.proceed()).isTrue();
         assertThat(s.proceed()).isFalse();
