@@ -5,6 +5,7 @@ public class ListResetTest extends ListTest {
     @BeforeEach
     protected void setUp() {
         super.setUp();
+        while(list.proceed());
         list.reset();
         model = ScheduleModel.getFreshModel();
     }
