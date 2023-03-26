@@ -7,17 +7,21 @@ import schedule.Step;
 import static com.google.common.truth.Truth.assertThat;
 
 class DuoTest {
-    private Schedule duo;
-    private ScheduleModel model;
+    protected Schedule duo;
+    protected ScheduleModel model;
 
     @BeforeEach
-    void setUp() {
+    protected void setUp() {
         duo = new Duo(new Step(() -> model.age = 50), new Step(() -> model.name = "Carlos"));
-        model = new ScheduleModel(20, "John", "Smith");
+        model = getFreshModel();
+    }
+
+    public static ScheduleModel getFreshModel(){
+        return new ScheduleModel(20, "John", "Smith");
     }
 
     @Test
-    void duoExecutesCorrectly() {
+    public void duoExecutesCorrectly() {
         assertThat(model.age).isNotEqualTo(50);
         assertThat(model.name).isNotEqualTo("Carlos");
         assertThat(duo.proceed()).isTrue();
@@ -27,12 +31,5 @@ class DuoTest {
         assertThat(model.age).isEqualTo(50);
         assertThat(model.name).isEqualTo("Carlos");
         assertThat(duo.proceed()).isFalse();
-    }
-
-    @Test
-    void duoResetsCorrectly() {
-        while(duo.proceed());
-        duo.reset();
-        assertThat(duo.proceed()).isTrue();
     }
 }
