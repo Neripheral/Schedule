@@ -9,7 +9,7 @@ class ForkTest {
     protected ScheduleModel model;
 
     @BeforeEach
-    public void setUp() {
+    protected void setUp() {
         fork = new Fork(
                 () -> model.age >= 18,
                 new Step(() -> model.surname = "Oldman"),
@@ -18,7 +18,7 @@ class ForkTest {
                         new Step(() ->model.surname = "Newman")
                 )
         );
-        model = new ScheduleModel(20, "John", "Smith");
+        model = ScheduleModel.getFreshModel();
     }
 
     @Test
