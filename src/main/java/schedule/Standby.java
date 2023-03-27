@@ -20,6 +20,6 @@ public class Standby implements Schedule {
 
     @Override
     public void reset() {
-
+        schedule.reset();
     }
 }
