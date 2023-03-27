@@ -26,6 +26,7 @@ public class Multiple implements Schedule{
 
     @Override
     public void reset() {
-
+        repeatsExecuted = 0;
+        scheduleToRepeat.reset();
     }
 }
