@@ -14,10 +14,15 @@ public class Repetition implements Schedule {
 
     @Override
     public boolean proceed() {
-        if(isDone)
+        if(isDone) // end if repetition was halted
             return false;
-        if(repeatCondition.getAsBoolean())
+        if(schedule.proceed()) // proceed with schedule if said schedule hasn't been finished yet
+            return true;
+        if(repeatCondition.getAsBoolean()) { // on schedule finished check if it should be repeated
+            schedule.reset();
             return schedule.proceed();
+        }
+        // otherwise halt the repetition
         isDone = true;
         return false;
     }
