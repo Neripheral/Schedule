@@ -4,6 +4,7 @@ import java.util.function.BooleanSupplier;
 
 public class Repetition implements Schedule {
     private boolean isDone = false;
+    private boolean isOngoingSchedule = false;
     private final Schedule schedule;
     private final BooleanSupplier repeatCondition;
 
@@ -14,17 +15,28 @@ public class Repetition implements Schedule {
 
     @Override
     public boolean proceed() {
-        if(isDone) // end if repetition was halted
+        // if repetition is already halted then return false
+        if(isDone)
             return false;
-        if(schedule.proceed()) // proceed with schedule if said schedule hasn't been finished yet
-            return true;
-        if(repeatCondition.getAsBoolean()) { // on schedule finished check if it should be repeated
-            schedule.reset();
-            return schedule.proceed();
+
+        // repeat the schedule if finished or halt depending on the condition
+        if(!isOngoingSchedule) {
+            if (repeatCondition.getAsBoolean()) {
+                schedule.reset();
+                isOngoingSchedule = true;
+            } else {
+                isDone = true;
+                return false;
+            }
         }
-        // otherwise halt the repetition
-        isDone = true;
-        return false;
+
+        // proceed with ongoing schedule
+        if (schedule.proceed())
+            return true;
+        else {
+            isOngoingSchedule = false;
+            return this.proceed();
+        }
     }
 
     @Override
