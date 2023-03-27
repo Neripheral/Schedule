@@ -51,4 +51,12 @@ class RepetitionTest {
         }
         assertThat(repetition.proceed()).isFalse();
     }
+
+    @Test
+    public void repetitionDoesNothingIfHaltedEvenThoughConditionIsSatisfiedNow() {
+        model.age = 30;
+        assertThat(repetition.proceed()).isFalse();
+        model.age = 15;
+        assertThat(repetition.proceed()).isFalse();
+    }
 }
