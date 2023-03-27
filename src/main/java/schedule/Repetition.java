@@ -7,7 +7,7 @@ public class Repetition implements Schedule {
     private final Schedule schedule;
     private final BooleanSupplier repeatCondition;
 
-    public Repetition(Schedule schedule, BooleanSupplier repeatCondition) {
+    public Repetition(BooleanSupplier repeatCondition, Schedule schedule) {
         this.schedule = schedule;
         this.repeatCondition = repeatCondition;
     }
