@@ -1,7 +1,7 @@
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import schedule.Schedule;
-import schedule.Schedules;
+import schedule.S;
 
 import static com.google.common.truth.Truth.assertThat;
 
@@ -11,7 +11,7 @@ class ListTest {
 
     @BeforeEach
     protected void setUp() {
-        list = Schedules.list(
+        list = S.list(
                 () -> model.age = 50,
                 () -> model.name = "Carlos",
                 () -> model.surname = "Lopez",
