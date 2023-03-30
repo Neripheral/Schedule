@@ -1,12 +1,14 @@
+package schedule;
+
 import org.junit.jupiter.api.BeforeEach;
 
-public class ListResetTest extends ListTest {
+public class ForkResetTest extends ForkTest {
     @Override
     @BeforeEach
     protected void setUp() {
         super.setUp();
-        while(list.proceed());
-        list.reset();
+        while(fork.proceed());
+        fork.reset();
         model = ScheduleModel.getFreshModel();
     }
 }

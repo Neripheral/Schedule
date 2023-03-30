@@ -1,3 +1,5 @@
+package schedule;
+
 class ScheduleModel {
     public ScheduleModel(int age, String name, String surname) {
         this.age = age;

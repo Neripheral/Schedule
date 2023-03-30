@@ -1,12 +1,14 @@
+package schedule;
+
 import org.junit.jupiter.api.BeforeEach;
 
-public class ForkResetTest extends ForkTest {
+public class RepetitionResetTest extends RepetitionTest {
     @Override
     @BeforeEach
     protected void setUp() {
         super.setUp();
-        while(fork.proceed());
-        fork.reset();
+        while(repetition.proceed());
         model = ScheduleModel.getFreshModel();
+        repetition.reset();
     }
 }

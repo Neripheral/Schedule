@@ -1,12 +1,14 @@
+package schedule;
+
 import org.junit.jupiter.api.BeforeEach;
 
-public class StepResetTest extends StepTest {
+public class MultipleResetTest extends MultipleTest {
     @Override
     @BeforeEach
     protected void setUp() {
         super.setUp();
-        while(s.proceed());
-        s.reset();
+        while(multiple.proceed());
+        multiple.reset();
         model = ScheduleModel.getFreshModel();
     }
 }

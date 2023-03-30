@@ -1,6 +1,7 @@
+package schedule;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import schedule.*;
 
 import static com.google.common.truth.Truth.assertThat;
 

@@ -1,10 +1,9 @@
+package schedule;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
-import schedule.Repetition;
-import schedule.Schedule;
-import schedule.Step;
 
 import static com.google.common.truth.Truth.assertThat;
 
