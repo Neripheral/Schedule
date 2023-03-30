@@ -1,6 +1,6 @@
 package schedule;
 
-public class Multiple implements Schedule{
+class Multiple implements Schedule{
     private int repeatsExecuted = 0;
     private final Schedule scheduleToRepeat;
 

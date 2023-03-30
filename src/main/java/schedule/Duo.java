@@ -2,7 +2,7 @@ package schedule;
 
 import java.util.Objects;
 
-public class Duo implements Schedule{
+class Duo implements Schedule{
     private final Schedule firstSchedule;
     private final Schedule secondSchedule;
 

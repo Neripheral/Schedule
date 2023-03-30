@@ -3,7 +3,7 @@ package schedule;
 import java.util.Objects;
 import java.util.function.BooleanSupplier;
 
-public class Fork implements Schedule{
+class Fork implements Schedule{
     public Fork(BooleanSupplier condition, Schedule scheduleIfPassed, Schedule scheduleIfFailed){
         this.condition = Objects.requireNonNull(condition);
         this.scheduleIfPassed = Objects.requireNonNull(scheduleIfPassed);

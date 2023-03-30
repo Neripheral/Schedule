@@ -2,7 +2,7 @@ package schedule;
 
 import java.util.function.BooleanSupplier;
 
-public class Standby implements Schedule {
+class Standby implements Schedule {
     private final Schedule schedule;
 
     public Standby(BooleanSupplier waitingFor) {

@@ -2,7 +2,7 @@ package schedule;
 
 import java.util.function.BooleanSupplier;
 
-public class Repetition implements Schedule {
+class Repetition implements Schedule {
     private boolean isDone = false;
     private boolean isOngoingSchedule = false;
     private final Schedule schedule;

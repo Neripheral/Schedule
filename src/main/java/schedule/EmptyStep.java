@@ -1,6 +1,6 @@
 package schedule;
 
-public class EmptyStep implements Schedule{
+class EmptyStep implements Schedule{
     public final static EmptyStep INSTANCE = new EmptyStep();
 
     private EmptyStep(){}
