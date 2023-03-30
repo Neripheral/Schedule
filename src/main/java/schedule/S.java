@@ -20,6 +20,14 @@ public enum S {;
         return new Duo(schedules[0], remainingScheduleTree);
     }
 
+    public static Schedule list(Runnable...runnables){
+        Schedule[] schedules =
+                Arrays.stream(runnables)
+                        .map(Step::new)
+                        .toArray(Schedule[]::new);
+        return list(schedules);
+    }
+
     public static Schedule performIf(BooleanSupplier condition, Schedule scheduleToPerformIfTrue){
         Objects.requireNonNull(condition);
         Objects.requireNonNull(scheduleToPerformIfTrue);
