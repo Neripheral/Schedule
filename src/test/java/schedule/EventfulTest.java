@@ -30,4 +30,11 @@ class EventfulTest {
         eventful.proceed();
         assertThat(eventList).containsExactly(myEvent);
     }
+
+    @Test
+    public void proceedingTwiceDoesNotSendTwoEvents() {
+        eventful.proceed();
+        assertThat(eventful.proceed()).isFalse();
+        assertThat(eventList).hasSize(1);
+    }
 }
