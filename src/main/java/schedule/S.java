@@ -1,5 +1,7 @@
 package schedule;
 
+import util.Event;
+
 import java.util.Arrays;
 import java.util.Objects;
 import java.util.function.BooleanSupplier;
@@ -63,5 +65,11 @@ public enum S {;
         Objects.requireNonNull(condition);
 
         return new Standby(condition);
+    }
+
+    public interface EventReceiver extends Eventful.EventReceiver{}
+
+    public static Schedule event(EventReceiver receiver, Event event){
+        return new Eventful(receiver, event);
     }
 }
