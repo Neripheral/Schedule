@@ -16,7 +16,7 @@ class Eventful implements Schedule{
 
     @Override
     public void reset() {
-
+        schedule.reset();
     }
 
     public interface EventReceiver{
