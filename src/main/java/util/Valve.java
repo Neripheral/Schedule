@@ -8,6 +8,8 @@ public class Valve {
     private Runnable onFlowUnblocked;
 
     public void whenUnblockedDo(Runnable functionToPerform) {
+        if(functionToPerform == null)
+            throw new IllegalArgumentException("Function to perform cannot be null.");
         onFlowUnblocked = functionToPerform;
     }
 
