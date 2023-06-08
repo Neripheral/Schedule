@@ -5,6 +5,7 @@ import util.Event;
 import java.util.Arrays;
 import java.util.Objects;
 import java.util.function.BooleanSupplier;
+import java.util.function.Function;
 
 public enum S {;
     public static Schedule perform(Runnable functionToPerform){
@@ -71,5 +72,9 @@ public enum S {;
 
     public static Schedule event(EventReceiver receiver, Event event){
         return new Eventful(receiver, event);
+    }
+
+    public static ReceiverlessSchedule receiverlessSchedule(Function<EventReceiver, Schedule> rawSchedule){
+        return new ReceiverlessSchedule(rawSchedule);
     }
 }
