@@ -54,4 +54,18 @@ public class DirectorTest {
 
         assertThat(eventList).containsExactly(preEvent, postEvent);
     }
+
+    private void onEventWithHalting(Event event, Controller controller){
+        addEvent(event);
+        if(event.isOfType(preEvent.getClass()))
+            controller.stopFor(this);
+    }
+
+    @Test
+    public void participantCanHaltDirectorsProgress() {
+        director.addParticipant(Participant.withHalting(this::onEventWithHalting));
+        director.start();
+
+        assertThat(model.hasBeenChanged).isFalse();
+    }
 }
