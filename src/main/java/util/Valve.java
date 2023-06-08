@@ -20,6 +20,8 @@ public class Valve {
     }
 
     public void blockBy(Object token) {
+        if(token == null)
+            throw new IllegalArgumentException("Token cannot be null");
         blockages.add(token);
     }
 

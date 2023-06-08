@@ -80,4 +80,11 @@ public class ValveTest {
 
         assertThrows(IllegalArgumentException.class, shadyFunction);
     }
+
+    @Test
+    public void throwsWhenPassedNullAsArgument_blockBy(){
+        Executable shadyFunction = ()->valve.blockBy(null);
+
+        assertThrows(IllegalArgumentException.class, shadyFunction);
+    }
 }
