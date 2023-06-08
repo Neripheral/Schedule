@@ -34,6 +34,7 @@ public class DirectorTest {
         model = new Model();
         eventList = new ArrayList<>();
         director = new Director(getScheduleBuilder(model));
+        resumeFlowList = new ArrayList<>();
     }
 
     @Test
@@ -55,13 +56,13 @@ public class DirectorTest {
         assertThat(eventList).containsExactly(preEvent, postEvent);
     }
 
-    private Runnable resumeFlow;
+    private List<Runnable> resumeFlowList;
 
     private void onEventWithHalting(Event event, Controller controller){
         addEvent(event);
         if(event.isOfType(preEvent.getClass())) {
             controller.stopFor(this);
-            resumeFlow = ()->controller.resumeFor(this);
+            resumeFlowList.add(()->controller.resumeFor(this));
         }
     }
 
@@ -78,8 +79,24 @@ public class DirectorTest {
         director.addParticipant(Participant.withHalting(this::onEventWithHalting));
         director.start();
 
-        resumeFlow.run();
+        resumeFlowList.get(0).run();
 
+        assertThat(model.hasBeenChanged).isTrue();
+    }
+
+    @Test
+    public void whenUnhaltedFromMultipleHaltsDirectorContinues() {
+        director.addParticipant(Participant.withHalting(this::onEventWithHalting));
+        director.addParticipant(Participant.withHalting(this::onEventWithHalting));
+        director.start();
+
+        assertThat(resumeFlowList).hasSize(2);
+        assertThat(model.hasBeenChanged).isFalse();
+
+        resumeFlowList.get(0).run();
+        assertThat(model.hasBeenChanged).isFalse();
+
+        resumeFlowList.get(1).run();
         assertThat(model.hasBeenChanged).isTrue();
     }
 }
