@@ -87,4 +87,11 @@ public class ValveTest {
 
         assertThrows(IllegalArgumentException.class, shadyFunction);
     }
+    
+    @Test
+    public void throwsWhenPassedNullAsArgument_unblockFrom(){
+        Executable shadyFunction = ()->valve.unblockFrom(null);
+        
+        assertThrows(IllegalArgumentException.class, shadyFunction);
+    }
 }

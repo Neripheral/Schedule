@@ -26,6 +26,8 @@ public class Valve {
     }
 
     public void unblockFrom(Object token) {
+        if(token == null)
+            throw new IllegalArgumentException("Token cannot be null");
         if(!blockages.remove(token))
             throw new IllegalArgumentException("Attempting to unblock from object that is not blocking. Object: " + token);
         tryResumeFlow();
