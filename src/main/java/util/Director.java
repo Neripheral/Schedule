@@ -7,12 +7,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Director implements Controller{
-    private final ReceiverlessSchedule receiverlessSchedule;
-    private Schedule schedule;
-    private final List<Participant> participants;
-    private final Valve valve;
-    private boolean hasFinished;
-
     public Director(ReceiverlessSchedule schedule) {
         this.receiverlessSchedule = schedule;
         participants = new ArrayList<>();
@@ -20,23 +14,9 @@ public class Director implements Controller{
         hasFinished = false;
     }
 
-    private void onEventReceived(Event event){
-        participants.forEach(p->p.onEventReceived(event, this));
-    }
-
     public void start() {
         schedule = receiverlessSchedule.forReceiver(this::onEventReceived);
         tryProceed();
-    }
-
-    private void tryProceed(){
-        if(hasFinished)
-            return;
-        valve.whenUnblockedDo(()->{
-            if(!schedule.proceed())
-                hasFinished = true;
-            tryProceed();
-        });
     }
 
     public void addParticipant(Participant participant) {
@@ -51,5 +31,28 @@ public class Director implements Controller{
     @Override
     public void resumeFor(Object token) {
         valve.unblockFrom(token);
+    }
+
+
+
+    private final ReceiverlessSchedule receiverlessSchedule;
+    private Schedule schedule;
+    private final List<Participant> participants;
+    private final Valve valve;
+    private boolean hasFinished;
+
+    private void tryProceed(){
+        if(hasFinished)
+            return;
+        valve.whenUnblockedDo(()->{
+            if(!schedule.proceed())
+                hasFinished = true;
+            tryProceed();
+        });
+    }
+
+
+    private void onEventReceived(Event event){
+        participants.forEach(p->p.onEventReceived(event, this));
     }
 }
