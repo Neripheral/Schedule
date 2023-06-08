@@ -1,14 +1,24 @@
 package util;
 
 public class Valve {
-    private boolean blocked = false;
+    private boolean isBlocked = false;
+    private Runnable onFlowUnblocked;
 
     public void whenUnblockedDo(Runnable functionToPerform) {
-        if(!blocked)
-            functionToPerform.run();
+        onFlowUnblocked = functionToPerform;
+    }
+
+    private void tryResumeFlow(){
+        if(onFlowUnblocked != null && !isBlocked)
+            onFlowUnblocked.run();
     }
 
     public void blockBy(Object valveTest) {
-        blocked = true;
+        isBlocked = true;
+    }
+
+    public void unblockFrom(Object valveTest) {
+        isBlocked = false;
+        tryResumeFlow();
     }
 }

@@ -34,4 +34,13 @@ public class ValveTest {
 
         assertThat(hasBeenChanged).isFalse();
     }
+
+    @Test
+    public void unblockingValveCallsDoStuffMethod() {
+        valve.blockBy(this);
+        valve.whenUnblockedDo(this::doStuff);
+        valve.unblockFrom(this);
+
+        assertThat(hasBeenChanged).isTrue();
+    }
 }
