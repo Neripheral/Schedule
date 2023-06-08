@@ -2,7 +2,7 @@ package schedule;
 
 import java.util.function.Function;
 
-class ReceiverlessSchedule {
+public class ReceiverlessSchedule {
     private final Function<EventReceiver, Schedule> builder;
 
     public ReceiverlessSchedule(Function<EventReceiver, Schedule> builder) {
