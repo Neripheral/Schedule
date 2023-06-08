@@ -9,8 +9,8 @@ import java.util.List;
 
 import static com.google.common.truth.Truth.assertThat;
 
-class EventfulTest {
-    Schedule eventful;
+class PublisherTest {
+    Schedule publisher;
     Event myEvent;
     List<Event> eventList;
 
@@ -22,19 +22,19 @@ class EventfulTest {
     protected void setUp() {
         eventList = new ArrayList<>();
         myEvent = new Event() {};
-        eventful = new Eventful(this::receiveEvent, myEvent);
+        publisher = new Publisher(this::receiveEvent, myEvent);
     }
 
     @Test
     public void proceedSendsEvent() {
-        eventful.proceed();
+        publisher.proceed();
         assertThat(eventList).containsExactly(myEvent);
     }
 
     @Test
     public void proceedingTwiceDoesNotSendTwoEvents() {
-        eventful.proceed();
-        assertThat(eventful.proceed()).isFalse();
+        publisher.proceed();
+        assertThat(publisher.proceed()).isFalse();
         assertThat(eventList).hasSize(1);
     }
 }

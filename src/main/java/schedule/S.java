@@ -68,10 +68,10 @@ public enum S {;
         return new Standby(condition);
     }
 
-    public interface EventReceiver extends Eventful.EventReceiver{}
+    public interface EventReceiver extends Publisher.EventReceiver{}
 
     public static Schedule event(EventReceiver receiver, Event event){
-        return new Eventful(receiver, event);
+        return new Publisher(receiver, event);
     }
 
     public static ReceiverlessSchedule receiverlessSchedule(Function<EventReceiver, Schedule> rawSchedule){

@@ -2,13 +2,13 @@ package schedule;
 
 import org.junit.jupiter.api.BeforeEach;
 
-public class EventfulResetTest extends EventfulTest{
+public class PublisherResetTest extends PublisherTest {
     @Override
     @BeforeEach
     protected void setUp() {
         super.setUp();
-        while(eventful.proceed());
-        eventful.reset();
+        while(publisher.proceed());
+        publisher.reset();
         eventList.clear();
     }
 }

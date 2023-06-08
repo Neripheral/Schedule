@@ -2,10 +2,10 @@ package schedule;
 
 import util.Event;
 
-class Eventful implements Schedule{
+class Publisher implements Schedule{
     private final Schedule schedule;
 
-    public Eventful(EventReceiver receiver, Event event){
+    public Publisher(EventReceiver receiver, Event event){
         schedule = new Step(()->receiver.sendEvent(event));
     }
 
