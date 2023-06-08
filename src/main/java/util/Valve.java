@@ -9,8 +9,11 @@ public class Valve {
     }
 
     private void tryResumeFlow(){
-        if(onFlowUnblocked != null && !isBlocked)
-            onFlowUnblocked.run();
+        if(onFlowUnblocked != null && !isBlocked) {
+            Runnable toDo = onFlowUnblocked;
+            onFlowUnblocked = null;
+            toDo.run();
+        }
     }
 
     public void blockBy(Object valveTest) {

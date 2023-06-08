@@ -43,4 +43,17 @@ public class ValveTest {
 
         assertThat(hasBeenChanged).isTrue();
     }
+
+    @Test
+    public void unblockingTwicePerformsDoStuffOnlyOnce() {
+        valve.blockBy(this);
+        valve.whenUnblockedDo(this::doStuff);
+        valve.unblockFrom(this);
+        hasBeenChanged = false;
+
+        valve.blockBy(this);
+        valve.unblockFrom(this);
+
+        assertThat(hasBeenChanged).isFalse();
+    }
 }
