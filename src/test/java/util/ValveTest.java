@@ -72,6 +72,19 @@ public class ValveTest {
     }
 
     @Test
+    public void unblockingFromMultipleBlockagesExecutesDoStuff() {
+        valve.blockBy(this);
+        Object blockage = new Object();
+        valve.blockBy(blockage);
+        valve.whenUnblockedDo(this::doStuff);
+
+        valve.unblockFrom(this);
+        valve.unblockFrom(blockage);
+
+        assertThat(hasBeenChanged).isTrue();
+    }
+
+    @Test
     public void throwsWhenUnblockingFromSomethingThatWasNotBlocking() {
         valve.blockBy(this);
 
