@@ -26,4 +26,12 @@ public class ValveTest {
 
         assertThat(hasBeenChanged).isTrue();
     }
+
+    @Test
+    public void blockingValvePreventsFunctionFromPerforming() {
+        valve.blockBy(this);
+        valve.whenUnblockedDo(this::doStuff);
+
+        assertThat(hasBeenChanged).isFalse();
+    }
 }
