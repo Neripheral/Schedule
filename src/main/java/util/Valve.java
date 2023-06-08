@@ -11,6 +11,7 @@ public class Valve {
         if(functionToPerform == null)
             throw new IllegalArgumentException("Function to perform cannot be null.");
         onFlowUnblocked = functionToPerform;
+        tryResumeFlow();
     }
 
     private void tryResumeFlow(){
