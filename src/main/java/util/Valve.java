@@ -1,7 +1,10 @@
 package util;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Valve {
-    private boolean isBlocked = false;
+    private final List<Object> blockages = new ArrayList<>();
     private Runnable onFlowUnblocked;
 
     public void whenUnblockedDo(Runnable functionToPerform) {
@@ -9,7 +12,7 @@ public class Valve {
     }
 
     private void tryResumeFlow(){
-        if(onFlowUnblocked != null && !isBlocked) {
+        if(onFlowUnblocked != null && blockages.isEmpty()) {
             Runnable toDo = onFlowUnblocked;
             onFlowUnblocked = null;
             toDo.run();
@@ -17,11 +20,11 @@ public class Valve {
     }
 
     public void blockBy(Object valveTest) {
-        isBlocked = true;
+        blockages.add(valveTest);
     }
 
     public void unblockFrom(Object valveTest) {
-        isBlocked = false;
+        blockages.remove(valveTest);
         tryResumeFlow();
     }
 }

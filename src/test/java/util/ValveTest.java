@@ -56,4 +56,20 @@ public class ValveTest {
 
         assertThat(hasBeenChanged).isFalse();
     }
+
+    @Test
+    public void unblockingPartiallyDoesNotUnblockTheFlow() {
+        Object blockage = new Object();
+        valve.blockBy(this);
+        valve.blockBy(blockage);
+        valve.whenUnblockedDo(this::doStuff);
+
+        valve.unblockFrom(this);
+
+        assertThat(hasBeenChanged).isFalse();
+    }
+
+    @Test
+    public void throwsWhenUnblockingFromSomethingThatWasNotBlocking() {
+    }
 }
