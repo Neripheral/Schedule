@@ -68,8 +68,6 @@ public enum S {;
         return new Standby(condition);
     }
 
-    public interface EventReceiver extends Publisher.EventReceiver{}
-
     public static Schedule event(EventReceiver receiver, Event event){
         return new Publisher(receiver, event);
     }
