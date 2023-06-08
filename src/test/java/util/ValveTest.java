@@ -2,8 +2,10 @@ package util;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.function.Executable;
 
 import static com.google.common.truth.Truth.assertThat;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class ValveTest {
     Valve valve;
@@ -71,5 +73,11 @@ public class ValveTest {
 
     @Test
     public void throwsWhenUnblockingFromSomethingThatWasNotBlocking() {
+        valve.blockBy(this);
+
+        Object unobtrusiveBlockage = new Object();
+        Executable shadyFunction = ()->valve.unblockFrom(unobtrusiveBlockage);
+
+        assertThrows(IllegalArgumentException.class, shadyFunction);
     }
 }

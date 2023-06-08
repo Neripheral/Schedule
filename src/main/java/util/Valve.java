@@ -19,12 +19,13 @@ public class Valve {
         }
     }
 
-    public void blockBy(Object valveTest) {
-        blockages.add(valveTest);
+    public void blockBy(Object token) {
+        blockages.add(token);
     }
 
-    public void unblockFrom(Object valveTest) {
-        blockages.remove(valveTest);
+    public void unblockFrom(Object token) {
+        if(!blockages.remove(token))
+            throw new IllegalArgumentException("Attempting to unblock from object that is not blocking. Object: " + token);
         tryResumeFlow();
     }
 }
