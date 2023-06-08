@@ -26,20 +26,21 @@ public class Director implements Controller{
 
     public void start() {
         schedule = receiverlessSchedule.forReceiver(this::onEventReceived);
-        while(hasFinished){
-            tryProceed();
-        }
+        tryProceed();
     }
 
     private void tryProceed(){
+        if(hasFinished)
+            return;
         valve.whenUnblockedDo(()->{
             if(!schedule.proceed())
                 hasFinished = true;
+            tryProceed();
         });
     }
 
-    public void addParticipant(Participant doing) {
-        participants.add(doing);
+    public void addParticipant(Participant participant) {
+        participants.add(participant);
     }
 
     @Override

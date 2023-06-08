@@ -55,10 +55,14 @@ public class DirectorTest {
         assertThat(eventList).containsExactly(preEvent, postEvent);
     }
 
+    private Runnable resumeFlow;
+
     private void onEventWithHalting(Event event, Controller controller){
         addEvent(event);
-        if(event.isOfType(preEvent.getClass()))
+        if(event.isOfType(preEvent.getClass())) {
             controller.stopFor(this);
+            resumeFlow = ()->controller.resumeFor(this);
+        }
     }
 
     @Test
@@ -67,5 +71,15 @@ public class DirectorTest {
         director.start();
 
         assertThat(model.hasBeenChanged).isFalse();
+    }
+
+    @Test
+    public void whenUnhaltedDirectorContinues() {
+        director.addParticipant(Participant.withHalting(this::onEventWithHalting));
+        director.start();
+
+        resumeFlow.run();
+
+        assertThat(model.hasBeenChanged).isTrue();
     }
 }
