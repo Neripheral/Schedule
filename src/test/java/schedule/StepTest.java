@@ -36,6 +36,14 @@ public class StepTest {
         assertThat(s.toString()).isEqualTo("[ ] Set age to 5");
     }
 
+    @Test public void toStringWithMultilineDescriptionReturnsCorrectString(){
+        s = new Step(() -> model.age = 5, "Set age\nto 5");
+        assertThat(s.toString()).isEqualTo(
+                """
+                [ ] Set age
+                    to 5""");
+    }
+
     @Test public void toStringCompletedShowsCheckmark(){
         s.proceed();
         assertThat(s.toString()).isEqualTo("[X] unspecified");

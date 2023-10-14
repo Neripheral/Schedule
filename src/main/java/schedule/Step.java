@@ -35,6 +35,9 @@ class Step implements Schedule{
     public String toString() {
         String checkmarkText =
                 isDone ? "X" : " ";
-        return String.format("[%s] %s", checkmarkText, description);
+        return String.format(
+                "[%s] %s",
+                checkmarkText,
+                description.replace("\n", "\n    "));
     }
 }
