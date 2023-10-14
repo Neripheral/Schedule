@@ -21,4 +21,9 @@ class Duo implements Schedule{
         firstSchedule.reset();
         secondSchedule.reset();
     }
+
+    @Override
+    public String toString() {
+        return firstSchedule + "\n" + secondSchedule;
+    }
 }

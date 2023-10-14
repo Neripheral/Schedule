@@ -11,7 +11,13 @@ class DuoTest {
 
     @BeforeEach
     protected void setUp() {
-        duo = new Duo(new Step(() -> model.age = 50), new Step(() -> model.name = "Carlos"));
+        duo = new Duo(
+                new Step(
+                        () -> model.age = 50,
+                        "Set age to 50"),
+                new Step(
+                        () -> model.name = "Carlos",
+                "Set name to Carlos"));
         model = ScheduleModel.getFreshModel();
     }
 
@@ -26,5 +32,12 @@ class DuoTest {
         assertThat(model.age).isEqualTo(50);
         assertThat(model.name).isEqualTo("Carlos");
         assertThat(duo.proceed()).isFalse();
+    }
+
+    @Test public void toStringReturnsCorrectString(){
+        assertThat(duo.toString()).isEqualTo(
+                "[ ] Set age to 50\n" +
+                        "[ ] Set name to Carlos"
+        );
     }
 }
