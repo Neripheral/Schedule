@@ -12,6 +12,10 @@ public enum S {;
         return new Step(Objects.requireNonNull(functionToPerform));
     }
 
+    public static Schedule perform(Runnable functionToPerform, String description){
+        return new Step(Objects.requireNonNull(functionToPerform), Objects.requireNonNull(description));
+    }
+
     public static Schedule list(Schedule...schedules){
         if(schedules.length == 0)
             throw new IllegalArgumentException("Array of arguments expected. None supplied.");

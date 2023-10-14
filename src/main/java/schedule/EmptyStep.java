@@ -12,4 +12,9 @@ class EmptyStep implements Schedule{
 
     @Override
     public void reset() {}
+
+    @Override
+    public String toString() {
+        return "-Stub-";
+    }
 }

@@ -26,4 +26,18 @@ public class StepTest {
         assertThat(s.proceed()).isTrue();
         assertThat(s.proceed()).isFalse();
     }
+
+    @Test public void toStringWithoutDescriptionReturnsCorrectString(){
+        assertThat(s.toString()).isEqualTo("[ ] unspecified");
+    }
+
+    @Test public void toStringWithDescriptionReturnsCorrectString(){
+        s = new Step(() -> model.age = 5, "Set age to 5");
+        assertThat(s.toString()).isEqualTo("[ ] Set age to 5");
+    }
+
+    @Test public void toStringCompletedShowsCheckmark(){
+        s.proceed();
+        assertThat(s.toString()).isEqualTo("[X] unspecified");
+    }
 }
