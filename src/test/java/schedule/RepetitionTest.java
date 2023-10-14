@@ -15,7 +15,8 @@ class RepetitionTest {
     protected void setUp() {
         repetition = new Repetition(
                 ()->(model.age > 9) && (model.age <= 20),
-                new Step(()->model.age--)
+                new Step(()->model.age--, "-1 age"),
+                "age is between 10 and 20 inclusive"
         );
         model = ScheduleModel.getFreshModel();
     }
@@ -57,5 +58,21 @@ class RepetitionTest {
         assertThat(repetition.proceed()).isFalse();
         model.age = 15;
         assertThat(repetition.proceed()).isFalse();
+    }
+
+    @Test public void toStringReturnsCorrectString(){
+        assertThat(repetition.toString()).isEqualTo(
+                """
+                while(age is between 10 and 20 inclusive):
+                 [ ] -1 age"""
+        );
+    }
+    @Test public void toStringReturnsCorrectStringWhenFinished(){
+        while(repetition.proceed());
+        assertThat(repetition.toString()).isEqualTo(
+                """
+                [X]while(age is between 10 and 20 inclusive):
+                 [X] -1 age"""
+        );
     }
 }

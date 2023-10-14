@@ -7,10 +7,18 @@ class Repetition implements Schedule {
     private boolean isOngoingSchedule = false;
     private final Schedule schedule;
     private final BooleanSupplier repeatCondition;
+    private final String conditionDescription;
 
     public Repetition(BooleanSupplier repeatCondition, Schedule schedule) {
         this.schedule = schedule;
         this.repeatCondition = repeatCondition;
+        this.conditionDescription = "unspecified";
+    }
+
+    public Repetition(BooleanSupplier repeatCondition, Schedule schedule, String conditionDescription) {
+        this.schedule = schedule;
+        this.repeatCondition = repeatCondition;
+        this.conditionDescription = conditionDescription;
     }
 
     @Override
@@ -43,5 +51,18 @@ class Repetition implements Schedule {
     public void reset() {
         isDone = false;
         schedule.reset();
+    }
+
+    @Override
+    public String toString() {
+        String prefix =
+                isDone ? "[X]" : "";
+        return String.format(
+               """
+               %swhile(%s):
+                %s""",
+                prefix,
+                conditionDescription,
+                schedule.toString().replace("/n", "/n "));
     }
 }
