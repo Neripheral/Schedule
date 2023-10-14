@@ -4,10 +4,30 @@ import java.util.Objects;
 import java.util.function.BooleanSupplier;
 
 class Fork implements Schedule{
-    public Fork(BooleanSupplier condition, Schedule scheduleIfPassed, Schedule scheduleIfFailed){
+    private boolean isConditionChecked = false;
+    private boolean isRequirementPassed = false;
+    private final BooleanSupplier condition;
+    private final Schedule scheduleIfPassed;
+    private final Schedule scheduleIfFailed;
+    private final String conditionDescription;
+
+    public Fork(BooleanSupplier condition,
+                Schedule scheduleIfPassed,
+                Schedule scheduleIfFailed){
         this.condition = Objects.requireNonNull(condition);
         this.scheduleIfPassed = Objects.requireNonNull(scheduleIfPassed);
         this.scheduleIfFailed = Objects.requireNonNull(scheduleIfFailed);
+        this.conditionDescription = "unspecified";
+    }
+
+    public Fork(BooleanSupplier condition,
+                Schedule scheduleIfPassed,
+                Schedule scheduleIfFailed,
+                String conditionDescription){
+        this.condition = Objects.requireNonNull(condition);
+        this.scheduleIfPassed = Objects.requireNonNull(scheduleIfPassed);
+        this.scheduleIfFailed = Objects.requireNonNull(scheduleIfFailed);
+        this.conditionDescription = conditionDescription;
     }
 
     @Override
@@ -29,9 +49,23 @@ class Fork implements Schedule{
         isConditionChecked = false;
     }
 
-    private boolean isConditionChecked = false;
-    private boolean isRequirementPassed = false;
-    private final BooleanSupplier condition;
-    private final Schedule scheduleIfPassed;
-    private final Schedule scheduleIfFailed;
+    @Override
+    public String toString() {
+        String checkmark = " ";
+        if(isConditionChecked)
+            checkmark = "F";
+        if(isRequirementPassed)
+            checkmark = "T";
+        return String.format(
+                """
+                if([%s]%s):
+                 %s
+                else:
+                 %s""",
+                checkmark,
+                conditionDescription,
+                scheduleIfPassed.toString().replace("\n", "\n "),
+                scheduleIfFailed.toString().replace("\n", "\n ")
+        );
+    }
 }

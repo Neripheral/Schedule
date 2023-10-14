@@ -13,11 +13,15 @@ class ForkTest {
     protected void setUp() {
         fork = new Fork(
                 () -> model.age >= 18,
-                new Step(() -> model.surname = "Oldman"),
+                new Step(() -> model.surname = "Oldman",
+                        "Set the name to Oldman"),
                 new Duo(
-                        new Step(()->model.name = "Brian"),
-                        new Step(() ->model.surname = "Newman")
-                )
+                        new Step(()->model.name = "Brian",
+                                "Set the name to Brian"),
+                        new Step(() ->model.surname = "Newman",
+                                "Set the surname to Newman")
+                ),
+                "Model's age is at least 18"
         );
         model = ScheduleModel.getFreshModel();
     }
@@ -56,5 +60,41 @@ class ForkTest {
         model.age = 20;
         assertThat(fork.proceed()).isTrue();
         assertThat(fork.proceed()).isFalse();
+    }
+
+    @Test public void toStringReturnsCorrectString(){
+        assertThat(fork.toString()).isEqualTo(
+                """
+                        if([ ]Model's age is at least 18):
+                         [ ] Set the name to Oldman
+                        else:
+                         [ ] Set the name to Brian
+                         [ ] Set the surname to Newman"""
+        );
+    }
+
+    @Test public void toStringReturnsCorrectStringWhenPassed(){
+        while(fork.proceed());
+        assertThat(fork.toString()).isEqualTo(
+                """
+                        if([T]Model's age is at least 18):
+                         [X] Set the name to Oldman
+                        else:
+                         [ ] Set the name to Brian
+                         [ ] Set the surname to Newman"""
+        );
+    }
+
+    @Test public void toStringReturnsCorrectStringWhenNOTPassed(){
+        model.age = 15;
+        while(fork.proceed());
+        assertThat(fork.toString()).isEqualTo(
+                """
+                        if([F]Model's age is at least 18):
+                         [ ] Set the name to Oldman
+                        else:
+                         [X] Set the name to Brian
+                         [X] Set the surname to Newman"""
+        );
     }
 }
