@@ -12,7 +12,7 @@ class MultipleTest {
     @BeforeEach
     protected void setUp() {
         multiple = new Multiple(5,
-                new Step(()->model.age++)
+                new Step(()->model.age++, "+1 to age")
         );
         model = ScheduleModel.getFreshModel();
     }
@@ -41,5 +41,13 @@ class MultipleTest {
             correctAge++;
         }
         assertThat(model.age).isEqualTo(25);
+    }
+
+    @Test public void toStringReturnsCorrectString(){
+        assertThat(multiple.toString()).isEqualTo(
+                """
+                        (0/5):
+                         [ ] +1 to age"""
+        );
     }
 }
