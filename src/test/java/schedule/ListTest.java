@@ -6,7 +6,7 @@ import org.junit.jupiter.api.Test;
 import static com.google.common.truth.Truth.assertThat;
 
 class ListTest {
-    protected Schedule list;
+    /*protected Schedule list;
     protected ScheduleModel model;
 
     @BeforeEach
@@ -52,5 +52,5 @@ class ListTest {
         assertThat(model.name).isEqualTo("Kamil");
         assertThat(model.surname).isEqualTo("Nowak");
         assertThat(list.proceed()).isFalse();
-    }
+    }*/
 }

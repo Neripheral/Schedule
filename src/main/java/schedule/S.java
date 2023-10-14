@@ -27,6 +27,7 @@ public enum S {;
         return new Duo(schedules[0], remainingScheduleTree);
     }
 
+    @Deprecated
     public static Schedule list(Runnable...runnables){
         Schedule[] schedules =
                 Arrays.stream(runnables)
