@@ -23,6 +23,10 @@ public class Director implements Controller{
         participants.add(participant);
     }
 
+    public boolean removeParticipant(Participant participant){
+        return participants.remove(participant);
+    }
+
     @Override
     public void stopFor(Object token) {
         valve.blockBy(token);
