@@ -46,8 +46,17 @@ class MultipleTest {
     @Test public void toStringReturnsCorrectString(){
         assertThat(multiple.toString()).isEqualTo(
                 """
-                        (0/5):
-                         [ ] +1 to age"""
+                        [ ] (0/5):
+                           [ ] +1 to age"""
+        );
+    }
+
+    @Test public void toStringReturnsCorrectStringAfterCompletion(){
+        while(multiple.proceed());
+        assertThat(multiple.toString()).isEqualTo(
+                """
+                        [X] (5/5):
+                           [X] +1 to age"""
         );
     }
 }

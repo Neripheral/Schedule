@@ -36,9 +36,14 @@ class Multiple implements Schedule{
     public String toString() {
         String body = scheduleToRepeat.toString();
         body = body.substring(body.indexOf("\n")+1);
+        String prefix = "X";
+        if(repeatsExecuted < expectedRepeats)
+            prefix = " ";
+
         return String.format(
-                "(%d/%d):\n" +
+                "[%s] (%d/%d):\n" +
                 "%s",
+                prefix,
                 repeatsExecuted,
                 expectedRepeats,
                 body
