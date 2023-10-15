@@ -37,9 +37,8 @@ class Multiple implements Schedule{
         String body = scheduleToRepeat.toString();
         body = body.substring(body.indexOf("\n")+1);
         return String.format(
-                """
-                (%d/%d):
-                %s""",
+                "(%d/%d):\n" +
+                "%s",
                 repeatsExecuted,
                 expectedRepeats,
                 body

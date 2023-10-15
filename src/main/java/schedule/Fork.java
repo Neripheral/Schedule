@@ -47,6 +47,7 @@ class Fork implements Schedule{
         scheduleIfPassed.reset();
         scheduleIfFailed.reset();
         isConditionChecked = false;
+        isRequirementPassed = false;
     }
 
     @Override
@@ -57,11 +58,10 @@ class Fork implements Schedule{
         if(isRequirementPassed)
             checkmark = "T";
         return String.format(
-                """
-                if([%s]%s):
-                 %s
-                else:
-                 %s""",
+                "if([%s]%s):\n" +
+                " %s\n" +
+                "else:\n" +
+                " %s",
                 checkmark,
                 conditionDescription,
                 scheduleIfPassed.toString().replace("\n", "\n "),

@@ -43,8 +43,7 @@ class Standby implements Schedule {
         if(isDone)
             doneMarker = "X";
         return String.format(
-               """
-               [%s] Wait until %s""",
+                "[%s] Wait until %s",
                 doneMarker,
                 conditionDescription
                 );

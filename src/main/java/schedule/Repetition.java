@@ -58,9 +58,8 @@ class Repetition implements Schedule {
         String prefix =
                 isDone ? "[X]" : "";
         return String.format(
-               """
-               %swhile(%s):
-                %s""",
+                "%swhile(%s):\n" +
+                " %s",
                 prefix,
                 conditionDescription,
                 schedule.toString().replace("/n", "/n "));
