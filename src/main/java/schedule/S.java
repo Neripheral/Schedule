@@ -43,12 +43,35 @@ public enum S {;
         return performIf(condition, scheduleToPerformIfTrue, EmptyStep.INSTANCE);
     }
 
-    public static Schedule performIf(BooleanSupplier condition, Schedule scheduleToPerformIfTrue, Schedule scheduleToPerformIfFalse){
+    public static Schedule performIf(BooleanSupplier condition,
+                                     Schedule scheduleToPerformIfTrue,
+                                     String conditionDescription){
+        Objects.requireNonNull(condition);
+        Objects.requireNonNull(scheduleToPerformIfTrue);
+
+        return performIf(condition, scheduleToPerformIfTrue, EmptyStep.INSTANCE, conditionDescription);
+    }
+
+    public static Schedule performIf(BooleanSupplier condition,
+                                     Schedule scheduleToPerformIfTrue,
+                                     Schedule scheduleToPerformIfFalse){
         Objects.requireNonNull(condition);
         Objects.requireNonNull(scheduleToPerformIfTrue);
         Objects.requireNonNull(scheduleToPerformIfFalse);
 
         return new Fork(condition, scheduleToPerformIfTrue, scheduleToPerformIfFalse);
+    }
+
+    public static Schedule performIf(BooleanSupplier condition,
+                                     Schedule scheduleToPerformIfTrue,
+                                     Schedule scheduleToPerformIfFalse,
+                                     String conditionDescription){
+        Objects.requireNonNull(condition);
+        Objects.requireNonNull(scheduleToPerformIfTrue);
+        Objects.requireNonNull(scheduleToPerformIfFalse);
+        Objects.requireNonNull(conditionDescription);
+
+        return new Fork(condition, scheduleToPerformIfTrue, scheduleToPerformIfFalse, conditionDescription);
     }
 
     public static Schedule repeatFor(int i, Schedule scheduleToRepeat){
@@ -67,10 +90,27 @@ public enum S {;
         return new Repetition(condition, scheduleToRepeat);
     }
 
+    public static Schedule repeatIfTrue(BooleanSupplier condition,
+                                        Schedule scheduleToRepeat,
+                                        String conditionDescription){
+        Objects.requireNonNull(condition);
+        Objects.requireNonNull(scheduleToRepeat);
+        Objects.requireNonNull(conditionDescription);
+
+        return new Repetition(condition, scheduleToRepeat, conditionDescription);
+    }
+
     public static Schedule waitFor(BooleanSupplier condition){
         Objects.requireNonNull(condition);
 
         return new Standby(condition);
+    }
+
+    public static Schedule waitFor(BooleanSupplier condition, String conditionDescription){
+        Objects.requireNonNull(condition);
+        Objects.requireNonNull(conditionDescription);
+
+        return new Standby(condition, conditionDescription);
     }
 
     public static Schedule event(EventReceiver receiver, Event event){
