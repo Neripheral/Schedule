@@ -59,13 +59,13 @@ class Fork implements Schedule{
             checkmark = "T";
         return String.format(
                 "if([%s]%s):\n" +
-                " %s\n" +
+                "|%s\n" +
                 "else:\n" +
-                " %s",
+                "|%s",
                 checkmark,
                 conditionDescription,
-                scheduleIfPassed.toString().replace("\n", "\n "),
-                scheduleIfFailed.toString().replace("\n", "\n ")
+                scheduleIfPassed.toString().replace("\n", "\n|"),
+                scheduleIfFailed.toString().replace("\n", "\n|")
         );
     }
 }

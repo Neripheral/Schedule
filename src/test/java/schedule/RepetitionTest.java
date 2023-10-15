@@ -63,16 +63,16 @@ class RepetitionTest {
     @Test public void toStringReturnsCorrectString(){
         assertThat(repetition.toString()).isEqualTo(
                 """
-                while(age is between 10 and 20 inclusive):
-                 [ ] -1 age"""
+                [ ] while(age is between 10 and 20 inclusive):
+                |[ ] -1 age"""
         );
     }
     @Test public void toStringReturnsCorrectStringWhenFinished(){
         while(repetition.proceed());
         assertThat(repetition.toString()).isEqualTo(
                 """
-                [X]while(age is between 10 and 20 inclusive):
-                 [X] -1 age"""
+                [X] while(age is between 10 and 20 inclusive):
+                |[X] -1 age"""
         );
     }
 }

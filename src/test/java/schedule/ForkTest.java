@@ -66,10 +66,10 @@ class ForkTest {
         assertThat(fork.toString()).isEqualTo(
                 """
                         if([ ]Model's age is at least 18):
-                         [ ] Set the name to Oldman
+                        |[ ] Set the name to Oldman
                         else:
-                         [ ] Set the name to Brian
-                         [ ] Set the surname to Newman"""
+                        |[ ] Set the name to Brian
+                        |[ ] Set the surname to Newman"""
         );
     }
 
@@ -78,10 +78,10 @@ class ForkTest {
         assertThat(fork.toString()).isEqualTo(
                 """
                         if([T]Model's age is at least 18):
-                         [X] Set the name to Oldman
+                        |[X] Set the name to Oldman
                         else:
-                         [ ] Set the name to Brian
-                         [ ] Set the surname to Newman"""
+                        |[ ] Set the name to Brian
+                        |[ ] Set the surname to Newman"""
         );
     }
 
@@ -91,10 +91,10 @@ class ForkTest {
         assertThat(fork.toString()).isEqualTo(
                 """
                         if([F]Model's age is at least 18):
-                         [ ] Set the name to Oldman
+                        |[ ] Set the name to Oldman
                         else:
-                         [X] Set the name to Brian
-                         [X] Set the surname to Newman"""
+                        |[X] Set the name to Brian
+                        |[X] Set the surname to Newman"""
         );
     }
 }

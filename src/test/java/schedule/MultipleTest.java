@@ -47,7 +47,7 @@ class MultipleTest {
         assertThat(multiple.toString()).isEqualTo(
                 """
                         [ ] (0/5):
-                           [ ] +1 to age"""
+                        |[ ] +1 to age"""
         );
     }
 
@@ -56,7 +56,7 @@ class MultipleTest {
         assertThat(multiple.toString()).isEqualTo(
                 """
                         [X] (5/5):
-                           [X] +1 to age"""
+                        |[X] +1 to age"""
         );
     }
 }
