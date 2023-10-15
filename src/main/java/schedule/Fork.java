@@ -47,6 +47,7 @@ class Fork implements Schedule{
         scheduleIfPassed.reset();
         scheduleIfFailed.reset();
         isConditionChecked = false;
+        isRequirementPassed = false;
     }
 
     @Override
