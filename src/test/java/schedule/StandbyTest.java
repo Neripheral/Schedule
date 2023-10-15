@@ -12,10 +12,10 @@ class StandbyTest {
     @BeforeEach
     protected void setUp() {
         standby = new Duo(
-                new Standby(()->model.age < 18),
+                new Standby(()->model.age < 18, "model's age is less than 18"),
                 new Duo(
-                        new Step(()->model.name = "Luke"),
-                        new Step(()->model.surname = "Stirling")
+                        new Step(()->model.name = "Luke", "Set name to Luke"),
+                        new Step(()->model.surname = "Stirling", "Set surname to Stirling")
                 )
         );
         model = ScheduleModel.getFreshModel();
@@ -61,5 +61,33 @@ class StandbyTest {
         assertThat(model.name).isEqualTo("Luke");
         assertThat(model.surname).isEqualTo("Stirling");
         assertThat(standby.proceed()).isFalse();
+    }
+
+    @Test public void toStringReturnsCorrectString(){
+        assertThat(standby.toString()).isEqualTo(
+                """
+                [ ] Wait until model's age is less than 18
+                [ ] Set name to Luke
+                [ ] Set surname to Stirling""");
+    }
+
+    @Test public void toStringReturnsCorrectStringWhenBlocked(){
+        standby.proceed();
+        assertThat(standby.toString()).isEqualTo(
+                """
+                [!] Wait until model's age is less than 18
+                [ ] Set name to Luke
+                [ ] Set surname to Stirling""");
+    }
+
+    @Test public void toStringReturnsCorrectStringWhenFinished(){
+        standby.proceed();
+        model.age = 17;
+        while(standby.proceed());
+        assertThat(standby.toString()).isEqualTo(
+                """
+                [X] Wait until model's age is less than 18
+                [X] Set name to Luke
+                [X] Set surname to Stirling""");
     }
 }
