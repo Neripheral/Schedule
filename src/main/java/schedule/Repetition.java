@@ -57,11 +57,12 @@ class Repetition implements Schedule {
     public String toString() {
         String prefix =
                 isDone ? "X" : " ";
+        String body = "|" + schedule.toString().replace("\n", "\n|");
         return String.format(
                 "[%s] while(%s):\n" +
-                "|%s",
+                "%s",
                 prefix,
                 conditionDescription,
-                schedule.toString().replace("/n", "/n|"));
+                body);
     }
 }
